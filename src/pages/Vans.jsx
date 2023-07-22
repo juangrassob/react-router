@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
-function Badge({ type }) {
+export function Badge({ className, type }) {
   const firstLetter = type.charAt(0);
   const firstLetterCap = firstLetter.toUpperCase();
   const remainingLetters = type.slice(1);
@@ -24,7 +25,7 @@ function Badge({ type }) {
   }
 
   return (
-    <i className={`rounded-md ${backGround} px-3 py-1 text-white`}>
+    <i className={`rounded-md px-3 py-1 text-white ${className} ${backGround}`}>
       {capitalizedType}
     </i>
   );
@@ -40,17 +41,19 @@ export default function Vans() {
   }, []);
 
   const vanElements = vans.map((van) => (
-    <div key={van.id} className="">
-      <img className="rounded-md" src={van.imageUrl} />
-      <div className="text-md mb-0 mt-3 flex justify-between font-mono font-bold">
-        <h3 className="">{van.name}</h3>
-        <p className="flex flex-col gap-0">
-          ${van.price}
-          <span className="text-xs font-light italic">/day</span>
-        </p>
+    <Link key={van.id} to={`/vans/${van.id}`}>
+      <div>
+        <img className="rounded-md" src={van.imageUrl} />
+        <div className="text-md mb-0 mt-3 flex justify-between font-mono font-bold">
+          <h3 className="">{van.name}</h3>
+          <p className="flex flex-col gap-0">
+            ${van.price}
+            <span className="text-xs font-light italic">/day</span>
+          </p>
+        </div>
+        <Badge type={van.type} />
       </div>
-      <Badge type={van.type} />
-    </div>
+    </Link>
   ));
 
   return (
