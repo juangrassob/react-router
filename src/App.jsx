@@ -1,8 +1,10 @@
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
-import Home from "./pages/Home";
-import About from "./pages/About";
+import "../server";
 
 // Pages
+import Home from "./pages/Home";
+import About from "./pages/About";
+import Vans from "./pages/Vans";
 
 export default function App() {
   return (
@@ -23,6 +25,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
+        <Route path="/vans" element={<Vans />} />
       </Routes>
       <footer className="bg-[#252525] p-6 text-center">
         <span className="text-center font-mono text-[#AAAAAA] ">
