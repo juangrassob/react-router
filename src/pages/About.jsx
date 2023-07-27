@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 export default function About() {
   return (
-    <div className="bg-[#FFF7ED] bg-cover pb-10">
+    <div className="min-h-screen bg-[#FFF7ED] bg-cover pb-10">
       <img
         className="w-full"
         src="/about-image.svg"
@@ -10,7 +10,7 @@ export default function About() {
       />
       <div>
         <h1 className="px-5 pt-10 text-2xl font-bold">
-          Don't squeeze in a sedan whtn you could relax ina van.
+          Don't squeeze in a sedan when you could relax ina van.
         </h1>
         <p className="p-5 text-sm">
           Our mission is to enliven your road trip with the perfect travel van

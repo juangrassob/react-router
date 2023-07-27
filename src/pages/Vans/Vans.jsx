@@ -57,7 +57,7 @@ export default function Vans() {
   ));
 
   return (
-    <div className="bg-[#FFF7ED]">
+    <div className="min-h-screen bg-[#FFF7ED]">
       <h1 className="px-5 pt-12 font-mono text-2xl font-bold">
         Explore our van options
       </h1>

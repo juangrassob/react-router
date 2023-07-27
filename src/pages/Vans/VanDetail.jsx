@@ -16,7 +16,7 @@ export default function VanDetails() {
   if (!van) return <span>Loading...</span>;
 
   return (
-    <div className="bg-[#FFF7ED] p-5">
+    <div className="min-h-screen bg-[#FFF7ED] p-5">
       <img className="mb-10 rounded-md" src={van.imageUrl} />
       <Badge className="" type={van.type} />
       <h3 className="mb-0  mt-3 font-mono text-2xl font-bold">{van.name}</h3>
