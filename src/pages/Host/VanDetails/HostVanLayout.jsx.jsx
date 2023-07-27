@@ -68,7 +68,7 @@ export default function HostVanLayout() {
           </NavLink>
         </nav>
 
-        <Outlet context={[van, setVan]} />
+        <Outlet context={{ van }} />
       </div>
     </div>
   );
