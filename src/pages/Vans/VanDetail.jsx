@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
-import { Badge } from "./Vans";
+import { useParams, Link, useLocation } from "react-router-dom";
+import Badge from "../../components/Badge";
 
 export default function VanDetails() {
   const { id } = useParams();
-
+  const location = useLocation();
   const [van, setVan] = useState(null);
+
+  console.log(location);
 
   useEffect(() => {
     fetch(`/api/vans/${id}`)
@@ -17,7 +19,13 @@ export default function VanDetails() {
 
   return (
     <div className="min-h-screen bg-[#FFF7ED] p-5">
-      <img className="mb-10 rounded-md" src={van.imageUrl} />
+      <Link to={`..?${location.state?.search || ""}`} relative="path">
+        <span>{`← Back to ${
+          location.state?.search.split("=")[1] || "all"
+        } vans`}</span>
+      </Link>
+
+      <img className="mb-10 rounded-md pt-5" src={van.imageUrl} />
       <Badge className="" type={van.type} />
       <h3 className="mb-0  mt-3 font-mono text-2xl font-bold">{van.name}</h3>
       <p className="font-mono text-xl font-bold">

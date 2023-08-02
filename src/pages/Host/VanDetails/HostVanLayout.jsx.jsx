@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, Link, Outlet, NavLink } from "react-router-dom";
-import { Badge } from "../../Vans/Vans";
+import Badge from "../../../components/Badge";
 
 export default function HostVanLayout() {
   const { id } = useParams();

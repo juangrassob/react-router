@@ -41,7 +41,9 @@ export default function HostLayout() {
           Reviews
         </NavLink>
       </nav>
-      <Outlet />
+      <div className="min-h-screen bg-[#FFF7ED] p-5">
+        <Outlet />
+      </div>
     </div>
   );
 }

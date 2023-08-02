@@ -11,7 +11,7 @@ export default function HostVans() {
   }, []);
 
   const vanElements = vans.map((van) => (
-    <Link key={van.id} to={`/host/vans/${van.id}`}>
+    <Link key={van.id} to={`${van.id}`}>
       <div className="flex gap-5 rounded-sm bg-white p-2">
         <div className="aspect-square w-1/6 overflow-hidden">
           <img className="rounded-md " src={van.imageUrl} />
