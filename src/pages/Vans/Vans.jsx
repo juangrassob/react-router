@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import Badge from "../../components/Badge";
+import { getVans } from "../../api";
 
 export default function Vans() {
   const [vans, setVans] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [params, setParams] = useSearchParams();
 
   console.log(params.toString());
@@ -11,20 +13,23 @@ export default function Vans() {
   const currentTypeFilter = params.get("type");
 
   useEffect(() => {
-    fetch("/api/vans")
-      .then((res) => res.json())
-      .then((data) => {
-        if (!currentTypeFilter) {
-          setVans(data.vans);
-          return;
-        }
+    async function loadVans() {
+      setLoading(true);
+      const data = await getVans();
 
-        const filteredVans = data.vans.filter(
-          (van) => van.type === currentTypeFilter
-        );
+      if (!currentTypeFilter) {
+        setVans(data);
+        setLoading(false);
+        return;
+      }
 
-        setVans(filteredVans);
-      });
+      const filteredVans = data.filter((van) => van.type === currentTypeFilter);
+
+      setVans(filteredVans);
+      setLoading(false);
+    }
+
+    loadVans();
   }, [params]);
 
   const vanElements = vans.map((van) => (
@@ -42,6 +47,10 @@ export default function Vans() {
       </div>
     </Link>
   ));
+
+  if (loading === true) {
+    return <h1>Loading</h1>;
+  }
 
   return (
     <div className="min-h-screen bg-[#FFF7ED]">
