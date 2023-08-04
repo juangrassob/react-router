@@ -1,4 +1,4 @@
-import { createServer, Model } from "miragejs";
+import { createServer, Model, Response } from "miragejs";
 
 export default createServer({
   models: {
@@ -76,8 +76,10 @@ export default createServer({
 
   routes() {
     this.namespace = "api";
+    this.timing = 1000;
 
     this.get("/vans", (schema, request) => {
+      return new Response(400, { error: "Invalid request" });
       return schema.vans.all();
     });
 

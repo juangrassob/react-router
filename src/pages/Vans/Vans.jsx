@@ -6,6 +6,7 @@ import { getVans } from "../../api";
 export default function Vans() {
   const [vans, setVans] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const [params, setParams] = useSearchParams();
 
   console.log(params.toString());
@@ -14,19 +15,28 @@ export default function Vans() {
 
   useEffect(() => {
     async function loadVans() {
-      setLoading(true);
-      const data = await getVans();
+      try {
+        setLoading(true);
 
-      if (!currentTypeFilter) {
-        setVans(data);
+        const data = await getVans();
+
+        if (!currentTypeFilter) {
+          setVans(data);
+          setLoading(false);
+          return;
+        }
+
+        const filteredVans = data.filter(
+          (van) => van.type === currentTypeFilter
+        );
+
+        setVans(filteredVans);
+      } catch (error) {
+        console.log(error);
+        setError(error);
+      } finally {
         setLoading(false);
-        return;
       }
-
-      const filteredVans = data.filter((van) => van.type === currentTypeFilter);
-
-      setVans(filteredVans);
-      setLoading(false);
     }
 
     loadVans();
@@ -48,8 +58,12 @@ export default function Vans() {
     </Link>
   ));
 
-  if (loading === true) {
+  if (loading) {
     return <h1>Loading</h1>;
+  }
+
+  if (error) {
+    return <h1>Error: {error.message}</h1>;
   }
 
   return (
