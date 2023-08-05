@@ -10,7 +10,7 @@ import "../server";
 // Pages
 import Home from "./pages/Home";
 import About from "./pages/About";
-import Vans from "./pages/Vans/Vans";
+import Vans, { loader as vansLoader } from "./pages/Vans/Vans";
 import VanDetails from "./pages/Vans/VanDetail";
 import Layout from "./components/Layout";
 import Dashboard from "./pages/Host/Dashboard";
@@ -23,6 +23,8 @@ import HostVanDetails from "./pages/Host/VanDetails/HostVanDetails";
 import HostVanPricing from "./pages/Host/VanDetails/HostVanPricing";
 import HostVanPhotos from "./pages/Host/VanDetails/HostVanPhotos";
 import NotFound from "./pages/Vans/NotFound";
+import { loader } from "./pages/Vans/Vans";
+import Error from "./components/Error";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -31,7 +33,12 @@ const router = createBrowserRouter(
 
       <Route path="/about" element={<About />} />
 
-      <Route path="/vans" element={<Vans />} />
+      <Route
+        path="/vans"
+        element={<Vans />}
+        errorElement={<Error />}
+        loader={vansLoader}
+      />
       <Route path="/vans/:id" element={<VanDetails />} />
 
       <Route path="host" element={<HostLayout />}>

@@ -1,46 +1,15 @@
 import { useEffect, useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useLoaderData, useSearchParams } from "react-router-dom";
 import Badge from "../../components/Badge";
 import { getVans } from "../../api";
 
 export default function Vans() {
-  const [vans, setVans] = useState([]);
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+
   const [params, setParams] = useSearchParams();
-
-  console.log(params.toString());
-
   const currentTypeFilter = params.get("type");
 
-  useEffect(() => {
-    async function loadVans() {
-      try {
-        setLoading(true);
-
-        const data = await getVans();
-
-        if (!currentTypeFilter) {
-          setVans(data);
-          setLoading(false);
-          return;
-        }
-
-        const filteredVans = data.filter(
-          (van) => van.type === currentTypeFilter
-        );
-
-        setVans(filteredVans);
-      } catch (error) {
-        console.log(error);
-        setError(error);
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    loadVans();
-  }, [params]);
+  const vans = useLoaderData();
 
   const vanElements = vans.map((van) => (
     <Link key={van.id} state={{ search: params.toString() }} to={`${van.id}`}>
@@ -57,10 +26,6 @@ export default function Vans() {
       </div>
     </Link>
   ));
-
-  if (loading) {
-    return <h1>Loading</h1>;
-  }
 
   if (error) {
     return <h1>Error: {error.message}</h1>;
@@ -92,4 +57,8 @@ export default function Vans() {
       <div className="grid grid-cols-2 gap-5 p-5">{vanElements}</div>
     </div>
   );
+}
+
+export function loader() {
+  return getVans();
 }
