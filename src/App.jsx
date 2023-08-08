@@ -11,7 +11,7 @@ import "../server";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Vans, { loader as vansLoader } from "./pages/Vans/Vans";
-import VanDetails from "./pages/Vans/VanDetail";
+import VanDetails, { loader as vanDetailsLoader } from "./pages/Vans/VanDetail";
 import Layout from "./components/Layout";
 import Dashboard from "./pages/Host/Dashboard";
 import Income from "./pages/Host/Income";
@@ -23,8 +23,8 @@ import HostVanDetails from "./pages/Host/VanDetails/HostVanDetails";
 import HostVanPricing from "./pages/Host/VanDetails/HostVanPricing";
 import HostVanPhotos from "./pages/Host/VanDetails/HostVanPhotos";
 import NotFound from "./pages/Vans/NotFound";
-import { loader } from "./pages/Vans/Vans";
 import Error from "./components/Error";
+import Login from "./pages/Authentication/Login";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -32,6 +32,7 @@ const router = createBrowserRouter(
       <Route index element={<Home />} />
 
       <Route path="/about" element={<About />} />
+      <Route path="/login" element={<Login />} />
 
       <Route
         path="/vans"
@@ -39,7 +40,11 @@ const router = createBrowserRouter(
         errorElement={<Error />}
         loader={vansLoader}
       />
-      <Route path="/vans/:id" element={<VanDetails />} />
+      <Route
+        path="/vans/:id"
+        element={<VanDetails />}
+        loader={vanDetailsLoader}
+      />
 
       <Route path="host" element={<HostLayout />}>
         <Route index element={<Dashboard />} />

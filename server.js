@@ -79,13 +79,17 @@ export default createServer({
     this.timing = 1000;
 
     this.get("/vans", (schema, request) => {
-      return new Response(400, { error: "Invalid request" });
+      // return new Response(400, { error: "Invalid request" });
       return schema.vans.all();
     });
 
     this.get("/vans/:id", (schema, request) => {
       const id = request.params.id;
-      return schema.vans.find(id);
+      const van = schema.vans.find(id);
+
+      console.log("server van name: ", van.name);
+
+      return van;
     });
 
     this.get("/host/vans", (schema, request) => {
@@ -95,7 +99,9 @@ export default createServer({
 
     this.get("/host/vans/:id", (schema, request) => {
       const id = request.params.id;
-      return schema.vans.where({ id, hostId: 123 });
+      const van = schema.vans.where({ id, hostId: 123 });
+
+      return van;
     });
   },
 });

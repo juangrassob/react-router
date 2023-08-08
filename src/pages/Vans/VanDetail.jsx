@@ -1,21 +1,10 @@
-import { useEffect, useState } from "react";
-import { useParams, Link, useLocation } from "react-router-dom";
+import { Link, useLoaderData, useLocation } from "react-router-dom";
 import Badge from "../../components/Badge";
+import { getVanById } from "../../api";
 
 export default function VanDetails() {
-  const { id } = useParams();
   const location = useLocation();
-  const [van, setVan] = useState(null);
-
-  console.log(location);
-
-  useEffect(() => {
-    fetch(`/api/vans/${id}`)
-      .then((res) => res.json())
-      .then((data) => setVan(data.vans));
-  }, []);
-
-  if (!van) return <span>Loading...</span>;
+  const van = useLoaderData();
 
   return (
     <div className="min-h-screen bg-[#FFF7ED] p-5">
@@ -44,4 +33,8 @@ export default function VanDetails() {
       </div>
     </div>
   );
+}
+
+export function loader({ params }) {
+  return getVanById(params.id);
 }
